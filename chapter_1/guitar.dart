@@ -1,22 +1,31 @@
-class Guitar {
-  final String serialNumber, builder, model, type, backWood, frontWood;
-  final double price;
+import 'guitar_spec.dart';
 
-  Guitar({
+class Guitar {
+  final String serialNumber;
+  final double price;
+  final GuitarSpec spec;
+
+  const Guitar({
     required this.serialNumber,
-    required this.builder,
-    required this.model,
-    required this.type,
-    required this.backWood,
-    required this.frontWood,
     required this.price,
+    required this.spec,
   });
 
   String get getSerialNumber => serialNumber;
-  String get getBuilder => builder;
-  String get getModel => model;
-  String get getType => type;
-  String get getBackWood => backWood;
-  String get getFrontWood => frontWood;
+  GuitarSpec get guitarSpec => spec;
   double get getPrice => price;
+
+  @override
+  String toString() {
+    return 'Guitar Details:\n'
+        'Serial Number: $serialNumber\n'
+        'Builder: ${spec.builder}\n'
+        'Model: ${spec.model}\n'
+        'Type: ${spec.type}\n'
+        'Back Wood: ${spec.backWood}\n'
+        'Front Wood: ${spec.frontWood}\n'
+        'Price: \$$price\n'
+        // 'Number of Strings: ${spec.numStrings}'
+        ;
+  }
 }

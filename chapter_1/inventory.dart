@@ -1,20 +1,26 @@
-import 'guitar.dart';
+import './guitar.dart';
+import './guitar_spec.dart';
 
 class Inventory {
   final List<Guitar> guitars;
 
-  Inventory({required this.guitars});
+  Inventory({List<Guitar>? guitars}) : guitars = guitars ?? [];
 
-  void addGuiter(String serialNumber, String builder, String model, String type,
-      String backWood, String frontWood, double price) {
+  void addGuiter(Guitar addGuitar) {
+    final GuitarSpec guitarSpec = GuitarSpec(
+      builder: addGuitar.guitarSpec.builder,
+      model: addGuitar.guitarSpec.model,
+      type: addGuitar.guitarSpec.type,
+      backWood: addGuitar.guitarSpec.backWood,
+      frontWood: addGuitar.guitarSpec.frontWood,
+      numStrings: addGuitar.spec.numStrings,
+    );
+
     final Guitar guitar = Guitar(
-        serialNumber: serialNumber,
-        builder: builder,
-        model: model,
-        type: type,
-        backWood: backWood,
-        frontWood: frontWood,
-        price: price);
+      serialNumber: addGuitar.serialNumber,
+      spec: guitarSpec,
+      price: addGuitar.price,
+    );
     guitars.add(guitar);
   }
 
@@ -27,7 +33,13 @@ class Inventory {
     return null;
   }
 
-  Guitar? searchGuiter(Guitar searchGuiter) {
-    return null;
+  List<Guitar>? searchGuitar(GuitarSpec searchGuitar) {
+    List<Guitar>? matchingGuitars = [];
+    for (final Guitar guitar in guitars) {
+      if (guitar.spec.matches(searchGuitar)) {
+        matchingGuitars.add(guitar);
+      }
+    }
+    return matchingGuitars;
   }
 }
