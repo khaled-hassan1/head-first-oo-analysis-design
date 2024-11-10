@@ -13,10 +13,7 @@ class Remote {
       door.close();
     } else {
       door.open();
-      Timer.periodic(Duration(seconds: 3), (timer) {
-        door.close();
-        timer.cancel();
-      },);
+      Future.delayed(Duration(seconds: 3), door.close);
     }
   }
 }
