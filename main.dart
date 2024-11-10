@@ -7,9 +7,9 @@ void main(List<String> args) {
   print('-Fido barks to go outside...');
   remote.pressButton();
   print('-Fido has gone outside...');
-  remote.pressButton();
+  // remote.pressButton();
   print('-Fido all done...');
-  remote.pressButton();
+  // remote.pressButton();
   print('-Fido\'s back inside...');
-  remote.pressButton();
+  // remote.pressButton();
 }

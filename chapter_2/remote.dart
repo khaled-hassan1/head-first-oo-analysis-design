@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'dog_door.dart';
 
 class Remote {
@@ -11,6 +13,10 @@ class Remote {
       door.close();
     } else {
       door.open();
+      Timer.periodic(Duration(seconds: 3), (timer) {
+        door.close();
+        timer.cancel();
+      },);
     }
   }
 }
