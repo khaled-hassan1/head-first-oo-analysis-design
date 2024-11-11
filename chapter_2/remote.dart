@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'dog_door.dart';
+import './dog_door.dart';
 
 class Remote {
-  DogDoor door;
+  final DogDoor door;
 
-  Remote({required this.door});
+  const Remote({required this.door});
 
   void pressButton() {
     print('Pressing the remote control.');
@@ -13,7 +13,14 @@ class Remote {
       door.close();
     } else {
       door.open();
-      Future.delayed(Duration(seconds: 3), door.close);
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          if (door.isOpen) {
+            door.close();
+          }
+        },
+      );
     }
   }
 }
