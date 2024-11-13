@@ -1,15 +1,23 @@
 class DogDoor {
-  bool _open = false;
+  bool _isOpen = false;
 
-  bool get isOpen => _open;
+  bool get isOpen => _isOpen;
 
-  void open() {
+  void open() async {
     print('The dog door opends.');
-    _open = true;
+    _isOpen = true;
+    await Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        if (_isOpen) {
+          close();
+        }
+      },
+    );
   }
 
   void close() {
     print('The dog door closes.');
-    _open = false;
+    _isOpen = false;
   }
 }

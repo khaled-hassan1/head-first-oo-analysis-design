@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import './dog_door.dart';
 
 class Remote {
@@ -13,14 +11,6 @@ class Remote {
       door.close();
     } else {
       door.open();
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          if (door.isOpen) {
-            door.close();
-          }
-        },
-      );
     }
   }
 }
