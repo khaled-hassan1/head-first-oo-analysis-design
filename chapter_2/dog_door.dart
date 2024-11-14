@@ -1,5 +1,8 @@
+import 'bark.dart';
+
 class DogDoor {
   bool _isOpen = false;
+  final List<Bark> _bark = [];
 
   bool get isOpen => _isOpen;
 
@@ -20,4 +23,8 @@ class DogDoor {
     print('The dog door closes.');
     _isOpen = false;
   }
+
+  void addAllowedBArk(Bark bark) => _bark.add(bark);
+
+  List<Bark> get getAllowedBark => _bark;
 }
