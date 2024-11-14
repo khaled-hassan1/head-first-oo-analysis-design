@@ -6,11 +6,11 @@ class BarkRecognizer {
 
   const BarkRecognizer({required this.door});
 
-  void recognizer(final Bark bark) {
+  void recognize(Bark bark) {
     print('\tBarkRecognizer: Heard a "${bark.getSound}"');
-    final List<Bark> getAllowedBarks = door.getAllowedBark;
-    for (Bark barks in getAllowedBarks) {
-      if (barks.equels(bark)) {
+    final List<Bark> allowedBarks = door.getAllowedBark;
+    for (Bark allowedBark in allowedBarks) {
+      if (allowedBark.equals(bark)) {
         door.open();
         return;
       }

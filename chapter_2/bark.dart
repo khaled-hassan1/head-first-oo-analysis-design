@@ -5,7 +5,7 @@ class Bark {
 
   String get getSound => _sound;
 
-  bool equels(final Bark bark) {
+  bool equals(final Bark bark) {
     if (bark.getSound == _sound) {
       return true;
     } else {

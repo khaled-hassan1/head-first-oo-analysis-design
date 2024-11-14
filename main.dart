@@ -13,17 +13,17 @@ void main(List<String> args) async {
   final BarkRecognizer recognizer = BarkRecognizer(door: door);
   print('- Bruce start barking.');
   // remote.pressButton();
-  recognizer.recognizer(Bark('rawlf'));
+  recognizer.recognize(Bark('rawlf'));
   print('- Bruce has gone outside...');
   print('- Bruce all done...');
   await Future.delayed(const Duration(seconds: 3));
   print('...but he\'s stuck outside!');
   final Bark smallDogBark = Bark('yip');
   print('- A small dog starts barking...');
-  recognizer.recognizer(smallDogBark);
+  recognizer.recognize(smallDogBark);
   print('- Bruce starts barking...');
   // print('...Gina grabs the remote contorl.');
   // remote.pressButton();
-  recognizer.recognizer(Bark('rooowlf'));
+  recognizer.recognize(Bark('rooowlf'));
   print('-Fido\'s back inside...');
 }
