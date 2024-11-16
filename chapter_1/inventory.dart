@@ -6,7 +6,7 @@ class Inventory {
 
   Inventory({List<Guitar>? guitars}) : guitars = guitars ?? [];
 
-  void addGuiter(Guitar addGuitar) {
+  void addGuiter(final Guitar addGuitar) {
     final GuitarSpec guitarSpec = GuitarSpec(
       builder: addGuitar.guitarSpec.builder,
       model: addGuitar.guitarSpec.model,
@@ -17,14 +17,13 @@ class Inventory {
     );
 
     final Guitar guitar = Guitar(
-      serialNumber: addGuitar.serialNumber,
-      spec: guitarSpec,
-      price: addGuitar.price,
-    );
+        serialNumber: addGuitar.serialNumber,
+        spec: guitarSpec,
+        price: addGuitar.price);
     guitars.add(guitar);
   }
 
-  Guitar? getGuiter(String serialNumber) {
+  Guitar? getGuiter(final String serialNumber) {
     for (Guitar guiter in guitars) {
       if (guiter.serialNumber == serialNumber) {
         return guiter;
@@ -33,7 +32,7 @@ class Inventory {
     return null;
   }
 
-  List<Guitar>? searchGuitar(GuitarSpec searchGuitar) {
+  List<Guitar>? searchGuitar(final GuitarSpec searchGuitar) {
     List<Guitar>? matchingGuitars = [];
     for (final Guitar guitar in guitars) {
       if (guitar.spec.matches(searchGuitar)) {
