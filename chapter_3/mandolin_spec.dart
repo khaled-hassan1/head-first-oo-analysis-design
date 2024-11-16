@@ -27,14 +27,16 @@ class MandolinSpec extends InstrumentSpec {
 
   @override
   bool matches(InstrumentSpec otherSpec) {
+    // Ensure the otherSpec is a MandolinSpec
+    if (otherSpec is! MandolinSpec) {
+      return false;
+    }
     if (!super.matches(otherSpec)) {
       return false;
     }
-    if (otherSpec is MandolinSpec) {
-      if (otherSpec.getStyle.name != _style.name &&
-          otherSpec.getStyle.name.isNotEmpty) {
-        return false;
-      }
+    if (otherSpec.getStyle.displayName != _style.displayName &&
+        otherSpec.getStyle.displayName.isNotEmpty) {
+      return false;
     }
     return true;
   }

@@ -19,13 +19,15 @@ class GuitarSpec2 extends InstrumentSpec {
 
   @override
   bool matches(InstrumentSpec otherSpec) {
+    // Ensure the otherSpec is a GuitarSpec2
+    if (otherSpec is! GuitarSpec2) {
+      return false;
+    }
     if (!super.matches(otherSpec)) {
       return false;
     }
-    if (otherSpec is GuitarSpec2) {
-      if (otherSpec.numStrings != _numStrings) {
-        return false;
-      }
+    if (otherSpec.numStrings != _numStrings) {
+      return false;
     }
     return true;
   }

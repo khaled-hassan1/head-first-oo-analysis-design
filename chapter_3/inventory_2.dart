@@ -33,23 +33,13 @@ class Inventory2 {
     return null;
   }
 
-  List<Instrument>? searchGuitar(final GuitarSpec2 searchGuitar) {
-    List<Instrument>? matchingGuitars = [];
+  List<Instrument>? search(final InstrumentSpec searchSpec) {
+    List<Instrument>? matchingInstruments = [];
     for (final Instrument guitar in _instrument) {
-      if (guitar.getSpec.matches(searchGuitar)) {
-        matchingGuitars.add(guitar);
+      if (guitar.getSpec.matches(searchSpec)) {
+        matchingInstruments.add(guitar);
       }
     }
-    return matchingGuitars;
-  }
-
-  List<Instrument>? searchMandolin(final MandolinSpec searchGuitar) {
-    List<Instrument>? matchingInstrument = [];
-    for (final Instrument mandolin in _instrument) {
-      if (mandolin.getSpec.matches(searchGuitar)) {
-        matchingInstrument.add(mandolin);
-      }
-    }
-    return matchingInstrument;
+    return matchingInstruments;
   }
 }
