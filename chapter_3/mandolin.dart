@@ -1,8 +1,5 @@
-import 'enum_2/builder_2.dart';
-import 'enum_2/type_2.dart';
-import 'enum_2/wood_2.dart';
-import 'instrument.dart';
-import 'instrument_spec.dart';
+import './instrument.dart';
+import './mandolin_spec.dart';
 
 class Mandolin extends Instrument {
   Mandolin(
@@ -13,14 +10,15 @@ class Mandolin extends Instrument {
 
   @override
   String toString() {
-    final InstrumentSpec spec = getSpec;
+    final MandolinSpec spec = getSpec as MandolinSpec;
     return 'Mandolin Details:\n'
         'Serial Number: ${getSerialNumber}\n'
-        'Builder: ${spec.builder.displayName}\n'
-        'Model: ${spec.model}\n'
-        'Type: ${spec.type.displayName}\n'
-        'Back Wood: ${spec.backWood.displayName}\n'
-        'Front Wood: ${spec.frontWood.displayName}\n'
-        'Price: \$$getPrice\n';
+        'Builder: ${spec.getBuilder}\n'
+        'Model: ${spec.getModel}\n'
+        'Style: ${spec.getStyle}\n'
+        'Type: ${spec.getType}\n'
+        'Back Wood: ${spec.getBackWood}\n'
+        'Front Wood: ${spec.getFrontWood}\n'
+        'Price: \$$getPrice';
   }
 }

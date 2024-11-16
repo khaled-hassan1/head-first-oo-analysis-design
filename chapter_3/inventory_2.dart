@@ -1,9 +1,9 @@
-import 'guitar_2.dart';
-import 'guitar_spec_2.dart';
-import 'instrument.dart';
-import 'instrument_spec.dart';
-import 'mandolin.dart';
-import 'mandolin_spec.dart';
+import './guitar_2.dart';
+import './guitar_spec_2.dart';
+import './instrument.dart';
+import './instrument_spec.dart';
+import './mandolin.dart';
+import './mandolin_spec.dart';
 
 class Inventory2 {
   final List<Instrument> _instrument;
@@ -33,8 +33,8 @@ class Inventory2 {
     return null;
   }
 
-  List<Instrument>? search(final InstrumentSpec searchSpec) {
-    List<Instrument>? matchingInstruments = [];
+  List<Instrument> search(final InstrumentSpec searchSpec) {
+    List<Instrument> matchingInstruments = [];
     for (final Instrument guitar in _instrument) {
       if (guitar.getSpec.matches(searchSpec)) {
         matchingInstruments.add(guitar);

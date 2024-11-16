@@ -26,7 +26,7 @@ class GuitarSpec2 extends InstrumentSpec {
     if (!super.matches(otherSpec)) {
       return false;
     }
-    if (otherSpec.numStrings != _numStrings) {
+    if (otherSpec.getnumStrings != _numStrings) {
       return false;
     }
     return true;

@@ -3,48 +3,51 @@ import './enum_2/type_2.dart';
 import './enum_2/wood_2.dart';
 
 abstract class InstrumentSpec {
-  final String model;
-  final InstrumentBuilder builder;
-  final InstrumentType type;
-  final InstrumentWood backWood, frontWood;
-  final int? numStrings;
+  final String _model;
+  final InstrumentBuilder _builder;
+  final InstrumentType _type;
+  final InstrumentWood _backWood, _frontWood;
+  final int? _numStrings;
 
   InstrumentSpec(
-    this.builder,
-    this.type,
-    this.backWood,
-    this.frontWood,
-    this.model,
-    this.numStrings,
+    this._builder,
+    this._type,
+    this._backWood,
+    this._frontWood,
+    this._model,
+    this._numStrings,
   );
 
-  String get getModel => model;
-  String get getBuilder => builder.name;
-  String get getType => type.name;
-  String get getBack => backWood.name;
-  String get getFrontWood => frontWood.name;
-  int? get get => numStrings;
+  String get getModel => _model;
+  String get getBuilder => _builder.displayName;
+  String get getType => _type.displayName;
+  String get getBackWood => _backWood.displayName;
+  String get getFrontWood => _frontWood.displayName;
+  int? get getnumStrings => _numStrings;
 
   // Delegated comparison method
   bool matches(final InstrumentSpec otherSpec) {
     /// ''' Delegated comparison method ''' ///
-    if (builder != otherSpec.builder && otherSpec.builder.name.isNotEmpty) {
+    if (_builder != otherSpec._builder) {
       return false;
     }
-    if (model.toLowerCase() != otherSpec.model.toLowerCase() &&
-        otherSpec.model.isNotEmpty) {
+    if (_model.toLowerCase() != otherSpec._model.toLowerCase()) {
       return false;
     }
-    if (type != otherSpec.type && otherSpec.type.name.isNotEmpty) {
+    if (_type != otherSpec._type) {
       return false;
     }
-    if (backWood != otherSpec.backWood && otherSpec.backWood.name.isNotEmpty) {
+    if (_backWood != otherSpec._backWood) {
       return false;
     }
-    if (frontWood != otherSpec.frontWood &&
-        otherSpec.frontWood.name.isNotEmpty) {
+    if (_frontWood != otherSpec._frontWood) {
       return false;
     }
     return true;
+  }
+
+  @override
+  String toString() {
+    return '$_model';
   }
 }

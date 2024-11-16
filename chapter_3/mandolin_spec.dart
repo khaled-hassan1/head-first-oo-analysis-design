@@ -1,8 +1,8 @@
-import 'enum_2/builder_2.dart';
-import 'enum_2/style.dart';
-import 'enum_2/type_2.dart';
-import 'enum_2/wood_2.dart';
-import 'instrument_spec.dart';
+import './enum_2/builder_2.dart';
+import './enum_2/style.dart';
+import './enum_2/type_2.dart';
+import './enum_2/wood_2.dart';
+import './instrument_spec.dart';
 
 class MandolinSpec extends InstrumentSpec {
   final MandolinStyle _style;
