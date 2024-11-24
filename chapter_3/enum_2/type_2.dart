@@ -1,15 +1,17 @@
-enum InstrumentType {
+enum Type {
   Acoustic,
-  Electric,
+  Electric, Mandolin,
 }
 
-extension InstrumentExtension on InstrumentType {
+extension InstrumentExtension on Type {
   String get displayName {
     switch (this) {
-      case InstrumentType.Acoustic:
+      case Type.Acoustic:
         return 'Acoustic';
-      case InstrumentType.Electric:
+      case Type.Electric:
         return 'Electric';
+        case Type.Mandolin:
+        return 'Mandolin';
     }
   }
 }

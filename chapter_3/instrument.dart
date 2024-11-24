@@ -1,6 +1,6 @@
 import './instrument_spec.dart';
 
-abstract class Instrument {
+ class Instrument {
   final String _serialNumber;
   double? _price;
   final InstrumentSpec _instrumentSpec;
