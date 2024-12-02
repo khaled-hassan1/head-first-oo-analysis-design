@@ -74,8 +74,77 @@ Good luck! Take your time to design a clean, object-oriented solution.
 */
 
 // Your implementation goes here
+
+import 'package:test/test.dart';
+
 void main() {
-  // Demonstrate your implementation
+  group('Services Tests', () {
+    test('formatDuration formats correctly', () {
+      final duration = Duration(minutes: 35, seconds: 12);
+      final formattedDuration = Services.formatDuration(duration);
+      expect(formattedDuration, equals("00:35:12"));
+    });
+
+    test('calculateDiscount applies correct discount for books', () {
+      final originalPrice = 20.0;
+      final discountedPrice = Services.calculateDiscount(originalPrice, MediaType.book);
+      expect(discountedPrice, equals(18.0));
+    });
+  });
+
+  group('MusicTrack Tests', () {
+    test('MusicTrack displays correct info', () {
+      final track = MusicTrack(
+        title: "Test Track",
+        artist: "Test Artist",
+        price: 1.99,
+        releaseYear: 2023,
+        duration: Duration(minutes: 4, seconds: 30),
+      );
+      expect(track.title, equals("Test Track"));
+      expect(track.artist, equals("Test Artist"));
+      expect(track.price, equals(1.99));
+      expect(track.releaseYear, equals(2023));
+      expect(track.duration, equals(Duration(minutes: 4, seconds: 30)));
+    });
+  });
+
+  group('Inventory Tests', () {
+    test('Add, search, and calculate total inventory', () {
+      final inventory = Inventory();
+      final track = MusicTrack(
+        title: "Inventory Track",
+        artist: "Inventory Artist",
+        price: 2.99,
+        releaseYear: 2022,
+        duration: Duration(minutes: 3),
+      );
+
+      inventory.addMedia([track]);
+      final searchedMedia = inventory.searchItem([track]);
+      expect(searchedMedia, isNotNull);
+      expect(searchedMedia?.length, equals(1));
+
+      final total = inventory.calculateTotal();
+      expect(total, equals(2.99));
+    });
+
+    test('Remove media from inventory', () {
+      final inventory = Inventory();
+      final track = MusicTrack(
+        title: "Removable Track",
+        artist: "Removable Artist",
+        price: 3.99,
+        releaseYear: 2021,
+        duration: Duration(minutes: 5),
+      );
+
+      inventory.addMedia([track]);
+      inventory.removeMedia(track);
+      final total = inventory.calculateTotal();
+      expect(total, equals(0.0));
+    });
+  });
 }
 
 class Services {
@@ -114,34 +183,45 @@ enum MediaType { book, video, music, game }
 
 abstract class Media {
   final String _title, _artist;
-  double _price;
+  double? _price;
   final int _releaseYear;
 
-  Media(
-      {required String title,
-      required String artist,
-      required double price,
-      required int releaseYear})
-      : _title = title,
+  Media({
+    required String title,
+    required String artist,
+    required double price,
+    required int releaseYear,
+  })  : _title = title,
         _artist = artist,
-        _price = price,
-        _releaseYear = releaseYear;
+        _releaseYear = releaseYear {
+    if (price < 0.0) {
+      throw InvalidMediaException("Price cannot be negative.");
+    }
+    if (releaseYear < 1900 || releaseYear > DateTime.now().year) {
+      throw InvalidMediaException(
+          "Release year must be between 1900 and the current year.");
+    }
+    _price = price;
+  }
 
   String? get title => _title.isNotEmpty ? _title : null;
 
   String? get artist => _artist.isNotEmpty ? _artist : null;
 
-  double? get price => !_price.isNegative ? _price : null;
+  double? get price => _price;
 
-  int? get releaseYear {
-    final currentYear = DateTime.now().year;
-    if (_releaseYear >= 1900 && _releaseYear <= currentYear) {
-      return _releaseYear;
-    }
-    return null;
-  }
+  int? get releaseYear => _releaseYear;
 
   void displayInfo();
+
+  bool match(List<Media> search) {
+    for (Media element in search) {
+      if (element.title == _title || element.artist == _artist) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 class MusicTrack extends Media {
@@ -160,7 +240,7 @@ class MusicTrack extends Media {
   @override
   void displayInfo() {
     print(
-        'Title: ${title}.\nArtist: ${artist}.\nRelease Year: ${releaseYear}\n.Price: \$${price}.\nDuration: $duration.\n');
+        'Title: ${title}\nArtist: ${artist}\nRelease Year: ${releaseYear}\nPrice: \$${price}\nDuration: ${Services.formatDuration(duration)}\n');
   }
 }
 
@@ -174,6 +254,10 @@ class Album extends Media {
       required super.releaseYear,
       required List<MusicTrack> tracks})
       : _tracks = tracks;
+  //   {
+  // if (_tracks.isEmpty) {
+  //   throw new InvalidMediaException("Album must have at least one track.");
+  // }
 
   List<MusicTrack> get tracks => [..._tracks];
 
@@ -187,10 +271,56 @@ class Album extends Media {
     _tracks.forEach(
       (musicTrack) {
         print(
-            'Title: ${musicTrack.title}.\nArtist: ${musicTrack.artist}.\nRelease Year: ${musicTrack.releaseYear}\n.Price: \$${musicTrack.price}.\n');
+            'Title: ${musicTrack.title}\nArtist: ${musicTrack.artist}\nRelease Year: ${musicTrack.releaseYear}\nPrice: \$${musicTrack.price}\n');
       },
     );
   }
 }
 
-class Inventory {}
+class Inventory {
+  List<Media> _listMedia = [];
+
+  void addMedia(List<Media> media) {
+    _listMedia.addAll(media);
+  }
+
+  void removeMedia(Media media) {
+    _listMedia.remove(media);
+  }
+
+  double calculateTotal() {
+    double total = 0.0;
+    for (Media media in _listMedia) {
+      total += media.price!;
+    }
+    return total;
+  }
+
+  List<Media>? searchItem(List<Media> searchMedia) {
+    List<Media> matchingList = [];
+    for (Media media in searchMedia) {
+      if (!media.match(matchingList)) {
+        matchingList.add(media);
+      }
+    }
+    return matchingList.isNotEmpty ? matchingList : null;
+  }
+}
+
+class InventoryException implements Exception {
+  final String message;
+
+  InventoryException(this.message);
+
+  @override
+  String toString() => "InventoryException: $message";
+}
+
+class InvalidMediaException implements Exception {
+  final String message;
+
+  InvalidMediaException(this.message);
+
+  @override
+  String toString() => "InvalidMediaException: $message";
+}
