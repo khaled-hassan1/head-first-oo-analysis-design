@@ -2,11 +2,11 @@
 /// 1. Encapsulation
 class BankAccount {
   double _balance;
-  final String _accountHolder;
+  // final String _accountHolder;
 
   BankAccount({required double balance, required String accountHolder})
-      : _balance = balance,
-        _accountHolder = accountHolder;
+      : _balance = balance;
+  // _accountHolder = accountHolder;
 
   double get balance => _balance;
 
